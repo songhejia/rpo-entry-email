@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
-import Promise from 'promise-polyfill'; 
+import Promise from 'promise-polyfill';
 
 // To add to window
 if (!window.Promise) {
@@ -17,6 +17,9 @@ Vue.use(ElementUI)
 
 import axios from 'axios'
 Vue.prototype.$http = axios
+
+import moment from 'vue-moment'
+Vue.use(moment)
 
 Vue.config.productionTip = false
 

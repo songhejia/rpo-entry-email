@@ -1,7 +1,7 @@
 <template>
     <div class="entry-confirmation">
         <div class="table-title">
-            <h3>到岗候选人名单确认</h3>
+            <h3>到岗候选人名单确认-{{this.sendTime | moment("YYYYMMDD")}}</h3>
         </div>
         <el-row>
             <el-col :span="24">
@@ -34,7 +34,8 @@ export default {
         return {
             data: [],
             loading: false,
-            selected: []
+            selected: [],
+            sendTime: ''
         }
     },
     computed: {
@@ -63,6 +64,11 @@ export default {
                     return
                 }
                 this.data = data.data
+                if (data.data && data.data.length > 0) {
+                    this.sendTime = data.data[0].SendTime
+                    // console.log('moment', this.$moment)
+                    console.log(this)
+                }
                 // console.log(this.data)
             })
         },
