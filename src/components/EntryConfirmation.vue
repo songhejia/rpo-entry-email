@@ -3,7 +3,7 @@
         <div class="table-title">
             <h3>到岗候选人名单确认</h3>
         </div>
-        <el-table v-if="data" ref="multipleTable" :data="data" border tooltip-effect="dark" style="width: 100%" @selection-change="handleSelectionChange">
+        <el-table v-if="data" v-loading.body="loading" ref="multipleTable" :data="data" border tooltip-effect="dark" style="width: 100%" @selection-change="handleSelectionChange">
             <el-table-column type="selection" width="55">
             </el-table-column>
             <el-table-column prop="Name" label="姓名" width="120">
@@ -13,8 +13,8 @@
             </el-table-column>
             <el-table-column label="是否到岗" show-overflow-tooltip>
                 <template scope="scope">
-                    <el-button size="small" type="success" @click="handleEdit(scope.$index, scope.row)">已到岗</el-button>
-                    <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">未到岗</el-button>
+                    <el-button size="small" :type="scope.row.IsEntry==1?'success':'default'" @click="handleEntry(scope.$index, scope.row,1)">已到岗</el-button>
+                    <el-button size="small" :type="scope.row.IsEntry==0?'danger':'default'" @click="handleEntry(scope.$index, scope.row,0)">未到岗</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -25,7 +25,8 @@ export default {
     name: 'entry-confirmation',
     data() {
         return {
-            data: []
+            data: [],
+            loading: false
         }
     },
     methods: {
@@ -41,10 +42,30 @@ export default {
                 this.data = data.data.data
                 console.log(this.data)
             })
+        },
+        loadDataLoading() {
+            this.loading = true
+            this.$http.all([this.loadData()]).then(_ => {
+                this.loading = false
+            })
+        },
+        handleEntry(index, row, isEntry) {
+            console.log(row, isEntry)
+            return this.$http.post('/irpo/entryconfirm/setentryconfirm', {
+                relIds: row.RelId,
+                isEntry: isEntry,
+                emailId: row.EmailId
+            }).then(data => {
+                this.$message({
+                    message: '保存成功',
+                    type: 'success'
+                });
+                this.loadDataLoading()
+            })
         }
     },
     mounted() {
-        this.loadData()
+        this.loadDataLoading()
     }
 }
 </script>
