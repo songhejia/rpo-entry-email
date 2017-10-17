@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div>
     <top-logo></top-logo>
     <el-card class="app-body" :body-style="{ padding: '10px 20px'}">
       <router-view/>
