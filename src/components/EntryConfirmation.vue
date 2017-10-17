@@ -52,9 +52,14 @@ export default {
                 emailid: this.emailId
             }
             // console.log(this.$route.query.emailid)
-            return this.$http.get('/irpo/entryconfirm/getentryconfirm', { params }).then(data => {
-                this.data = data.data.data
-                console.log(this.data)
+            return this.$http.get('/irpo/entryconfirm/getentryconfirm', { params }).then(result => {
+                let data = result.data
+                if (data.code == 501) {
+                    this.$alert('已超7天有效期', '提示')
+                    return
+                }
+                this.data = data.data
+                // console.log(this.data)
             })
         },
         loadDataLoading() {
@@ -81,11 +86,10 @@ export default {
                 this.$message({
                     message: '没有选择任何项',
                     type: 'warning'
-                });
+                })
                 return
             }
             let relIds = this.selected.map(item => item.RelId)
-            console.log(relIds)
             return this.$http.post('/irpo/entryconfirm/setentryconfirm', {
                 relIds: relIds.join(';'),
                 isEntry: 1,
