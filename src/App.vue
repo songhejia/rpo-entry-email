@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <top-logo></top-logo>
-    <div class="app-body">
+    <el-card class="app-body" :body-style="{ padding: '10px 20px'}">
       <router-view/>
-    </div>
+    </el-card>
   </div>
 </template>
 
@@ -21,6 +21,7 @@ export default {
 body {
   margin: 0;
   padding: 0;
+  background-color: #ECEEF0;
 }
 
 #app {
@@ -35,5 +36,6 @@ body {
 .app-body {
   width: 60%;
   margin: 0 auto;
+  margin-top: 50px;
 }
 </style>
