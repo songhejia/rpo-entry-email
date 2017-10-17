@@ -58,6 +58,10 @@ export default {
                     this.$alert('已超7天有效期', '提示')
                     return
                 }
+                if (data.code == 600 || data.code == 500) {
+                    this.$alert('链接失效', '提示')
+                    return
+                }
                 this.data = data.data
                 // console.log(this.data)
             })
