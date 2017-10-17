@@ -53,7 +53,7 @@ export default {
                 emailid: this.emailId
             }
             // console.log(this.$route.query.emailid)
-            return this.$http.get('/irpo/entryconfirm/getentryconfirm', { params }).then(result => {
+            return this.$http.get(`/irpo/entryconfirm/getentryconfirm?${new Date().getTime()}`, { params }).then(result => {
                 let data = result.data
                 if (data.code == 501) {
                     this.$alert('已超7天有效期', '提示')

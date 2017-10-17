@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 // import HelloWorld from '@/components/HelloWorld'
-import EntryConfirmation from '@/components/EntryConfirmation'
+// import EntryConfirmation from '@/components/EntryConfirmation'
+const EntryConfirmation = () => import('@/components/EntryConfirmation')
 
 Vue.use(Router)
 
