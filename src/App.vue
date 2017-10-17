@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <top-logo></top-logo>
-    <router-view/>
+    <div class="app-body">
+      <router-view/>
+    </div>
   </div>
 </template>
 
@@ -28,5 +30,10 @@ body {
   /* text-align: center; */
   /* color: #2c3e50; */
   /* margin-top: 60px; */
+}
+
+.app-body {
+  width: 60%;
+  margin: 0 auto;
 }
 </style>
