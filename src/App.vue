@@ -4,15 +4,18 @@
     <el-card class="app-body" :body-style="{ padding: '10px 20px'}">
       <router-view/>
     </el-card>
+    <bottom-footer></bottom-footer>
   </div>
 </template>
 
 <script>
 import TopLogo from '@/components/TopLogo'
+import BottomFooter from '@/components/BottomFooter'
 export default {
   name: 'app',
   components: {
-    TopLogo
+    TopLogo,
+    BottomFooter
   }
 }
 </script>
