@@ -10,7 +10,7 @@
                 </div>
             </el-col>
         </el-row>
-        <el-table v-if="data" v-loading.body="loading" ref="multipleTable" :data="data" border tooltip-effect="dark" style="width: 100%" @selection-change="handleSelectionChange">
+        <el-table v-if="data" v-loading.body="loading" element-loading-text="拼命加载中" ref="multipleTable" :data="data" border tooltip-effect="dark" style="width: 100%" @selection-change="handleSelectionChange">
             <el-table-column type="selection" width="55">
             </el-table-column>
             <el-table-column prop="Name" label="姓名" width="120">
@@ -67,7 +67,7 @@ export default {
                 if (data.data && data.data.length > 0) {
                     this.sendTime = data.data[0].SendTime
                     // console.log('moment', this.$moment)
-                    console.log(this)
+                    // console.log(this)
                 }
                 // console.log(this.data)
             })
@@ -79,14 +79,16 @@ export default {
             })
         },
         handleEntry(index, row, isEntry) {
+            let isEntryText = isEntry ? '已到岗' : '未到岗'
             return this.$http.post('/irpo/entryconfirm/setentryconfirm', {
                 relIds: row.RelId,
                 isEntry: isEntry,
                 emailId: row.EmailId
             }).then(data => {
-                this.$message({
-                    message: '保存成功-' + row.Name,
-                    type: 'success'
+                this.$notify({
+                    title: '保存成功',
+                    message: `${row.Name}-已设置为：${isEntryText}`,
+                    type: isEntry ? 'success' : 'warning'
                 });
                 this.loadDataLoading()
             })
@@ -105,8 +107,9 @@ export default {
                 isEntry: 1,
                 emailId: this.emailId
             }).then(data => {
-                this.$message({
-                    message: '保存成功',
+                this.$notify({
+                    title: '成功',
+                    message: '批量保存成功',
                     type: 'success'
                 });
                 this.loadDataLoading()

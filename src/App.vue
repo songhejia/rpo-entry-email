@@ -11,6 +11,7 @@
 <script>
 import TopLogo from '@/components/TopLogo'
 import BottomFooter from '@/components/BottomFooter'
+
 export default {
   name: 'app',
   components: {
