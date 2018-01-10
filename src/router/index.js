@@ -3,11 +3,18 @@ import Router from 'vue-router'
 // import HelloWorld from '@/components/HelloWorld'
 // import EntryConfirmation from '@/components/EntryConfirmation'
 const EntryConfirmation = () => import('@/components/EntryConfirmation')
+const Delivery = () => import('@/components/Delivery')
 
 Vue.use(Router)
 
 const router = new Router({
   routes: [
+    {
+      path: '/delivery',
+      name: 'delivery',
+      meta: { title: "客户确认函交付明细" },
+      component: Delivery
+    },
     {
       path: '/',
       name: 'EntryConfirmation',
